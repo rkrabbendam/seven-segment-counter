@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script>
+
+        var segments = {
+            0:     ['a', 'b', 'c',      'e', 'f', 'g'],
+            1:     [     'c',                'f'     ],
+            2:     ['a',      'c', 'd', 'e',      'g'],
+            3:     ['a',      'c', 'd',      'f', 'g'],
+            4:     [     'b', 'c', 'd',      'f'     ],
+            5:     ['a', 'b',      'd',      'f', 'g'],
+            6:     ['a', 'b',      'd', 'e', 'f', 'g'],
+            7:     ['a',      'c',           'f'     ],
+            8:     ['a', 'b', 'c', 'd', 'e', 'f', 'g'],
+            9:     ['a', 'b', 'c', 'd',      'f', 'g'],
+            'all': ['a', 'b', 'c', 'd', 'e', 'f', 'g'],
+            '-':   [               'd'               ]
+        };
+
+        var lightSegments = function(number, clazz) {
+            segments['all'].forEach(function(seg) {
+                $(clazz + '.' + seg).css("background-color", 'red');
+
+                var opacity = 0.15;
+                if ($.inArray(seg, segments[number]) > -1) {
+                    opacity = 1;
+                }
+                $(clazz + '.' + seg).fadeTo(300, opacity);
+            });
+        };
+
+        var i1 = 0;
+        var i2 = 0;
+        var counter = function () {
+            lightSegments(i1, 'div.d1 div');
+            lightSegments(i2, 'div.d2 div');
+
+            i1++;
+            if (i1 == 10) {
+                i1 = 0;
+                i2++;
+            }
+            if (i2 == 10) {
+                i2 = 0;
+            }
+        };
+
+        $(document).ready(function () {
+            lightSegments('-', 'div.d1 div');
+            lightSegments('-', 'div.d2 div');
+
+            var myTimer = window.setInterval(function () {
+                counter();
+            }, 1000);
+        });
+
+    </script>
+
+    <style>
+        * {
+            background-color: black;
+        }
+
+        div.digit {
+            height: 360px;
+            width: 300px;
+            float: left;
+        }
+
+        div.digit div {
+            height: 40px;
+            width: 40px;
+            float: left;
+        }
+
+        div.digit div.horizontal {
+            width: 120px;
+        }
+
+        div.digit div.vertical {
+            height: 120px;
+        }
+
+        div.digit div.block {
+            height: 120px;
+            width: 120px;
+        }
+
+        div.digit div.row {
+            clear: left;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="digit d2">
+    <div class='row'></div>
+    <div class='horizontal a'></div>
+
+    <div class='row vertical b'></div>
+    <div class="block"></div>
+    <div class='vertical c'></div>
+
+    <div class="row"></div>
+    <div class='horizontal d'></div>
+
+    <div class='row vertical e'></div>
+    <div class="block"></div>
+    <div class='vertical f'></div>
+
+    <div class="row"></div>
+    <div class='horizontal g'></div>
+</div>
+
+<div class="digit d1">
+    <div class='row'></div>
+    <div class='horizontal a'></div>
+
+    <div class='row vertical b'></div>
+    <div class="block"></div>
+    <div class='vertical c'></div>
+
+    <div class="row"></div>
+    <div class='horizontal d'></div>
+
+    <div class='row vertical e'></div>
+    <div class="block"></div>
+    <div class='vertical f'></div>
+
+    <div class="row"></div>
+    <div class='horizontal g'></div>
+</div>
+
+
+</body>
+</html>
